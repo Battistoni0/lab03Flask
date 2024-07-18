@@ -1,0 +1,49 @@
+<div class="container"
+     (dragover)="onDragOver($event)"
+     (dragleave)="onDragLeave($event)"
+     (drop)="onDrop($event)">
+  <div class="file-upload">
+    <input #fileInput type="file" name="files" class="file-input" (change)="onFileChange($event)" multiple="multiple" accept=".csv,.txt,.pdf">
+    <div class="icon">
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </div>
+    <h3>Drag and drop files here</h3>
+    <span>- OR -</span>
+    <strong>Browse</strong>
+  </div>
+  <div class="list-upload">
+    <ul>
+      <li class="file-list" *ngFor="let file of files">
+        <div class="thumbnail">
+          <ion-icon [name]="getFileTypeIcon(file)"></ion-icon>
+          <span class="completed">
+            <ion-icon name="checkmark"></ion-icon>
+          </span>
+        </div>
+        <div class="properties">
+          <span class="title"><strong>{{ file.name }}</strong></span>
+          <span class="size">{{ file.size }} bytes</span>
+          <span class="progress">
+            <span class="buffer"></span>
+            <span class="percentage">0%</span>
+          </span>
+        </div>
+        <button class="remove" (click)="removeFile(file)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="files.length > 0" class="input-container">
+    <button (click)="uploadFiles()" [disabled]="loading" class="submit-button btn-loading">
+      <span class="btn-text">Analyze Multiple</span>
+      <img *ngIf="loading" src="assets/img/spinner-svgrepo-com.svg" class="loading-icon">
+    </button>
+  </div>
+
+  <app-modal-results 
+    [showModal]="showModal" 
+    [analysisResults]="analysisResults" 
+    (closeModalEvent)="closeModal()">
+  </app-modal-results>
+</div>

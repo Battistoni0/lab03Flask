@@ -1,0 +1,18 @@
+<div *ngIf="showModal" class="modal" (click)="closeModal($event)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close-button" (click)="closeModal($event)">&times;</span>
+      <h2>Analysis Results</h2>
+      <table>
+        <tr>
+          <th>Text</th>
+          <th>Sentiment</th>
+        </tr>
+        <tr *ngFor="let i of analysisResults.texts; let idx = index">
+          <td>{{ i }}</td>
+          <td>{{ analysisResults.sentiments[idx] }}</td>
+        </tr>
+      </table>
+      <app-chart-results [analysisResults]="analysisResults"></app-chart-results>
+    </div>
+  </div>
+  

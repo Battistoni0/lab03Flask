@@ -1,0 +1,27 @@
+<div class="drag-drop-container"
+     [class.dragover]="isDragOver"
+     (dragover)="onDragOver($event)"
+     (dragleave)="onDragLeave($event)"
+     (drop)="onDrop($event)">
+  <p>Arrastra y suelta tus archivos aquí</p>
+  <input type="file" multiple (change)="onFileChange($event)" />
+  <div *ngIf="files.length > 0">
+    <h3>Archivos seleccionados:</h3>
+    <ul>
+      <li *ngFor="let file of files">{{ file.name }}</li>
+    </ul>
+    <button (click)="analyzeCSV()" >Analyze CSV</button>
+  </div>
+</div>
+
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeModal()">&times;</span>
+    <h2>CSV Content</h2>
+    <table>
+      <tr *ngFor="let row of csvContent">
+        <td *ngFor="let cell of row">{{ cell }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

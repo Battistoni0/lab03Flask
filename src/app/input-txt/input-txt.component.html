@@ -1,0 +1,11 @@
+<div class="input-container">
+    <label for="input-text">Quick Analysis:</label>
+    <input type="text" id="input-text" class="input-text" [(ngModel)]="text" (keydown.enter)="analyzeSentiment()" placeholder="Type something...">
+    <button (click)="analyzeSentiment()" [class.btn-loading]="loading" class="submit-button">
+      <span class="btn-text">Analyze</span>
+      <img *ngIf="loading" src="assets/img/spinner-svgrepo-com.svg" class="loading-icon">
+    </button>
+    <div *ngIf="sentiment">
+      <p>Sentiment: {{ sentiment }}</p>
+    </div>
+  </div>
